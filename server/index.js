@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.get('/mvp', (req, res) => {
   console.log('get fires');
   controller.getMessages((err, messages) => {
-    console.log('inside callback of get request')
+    console.log('inside callback of get request');
     if (err) {
       res.status(500).send(err);
     } else {

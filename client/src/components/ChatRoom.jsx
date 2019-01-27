@@ -64,13 +64,15 @@ export default class ChatRoom extends React.Component {
                         </ol>
                     </div>
                 </div>
+                <h2>Send Message</h2>
+                <div className={"inputBox"}>
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Input Text:
                         <input type='input' value={this.state.text} name='text' onChange={this.handleChange}/>
                     </label>
                     <button>Submit</button>
                 </form>
+                </div>
             </div>
         )
     }
