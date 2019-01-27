@@ -8,24 +8,41 @@ export default class Game extends React.Component {
         currentGameInputs: [
             [null, null, null],
             [null, null, null],
-            [null, null, null]]
+            [null, null, null]],
+        console: ""
       };
 
       this.onClick = this.onClick.bind(this);
   }
 
   onClick(y, x) {
+      const boardManipulator = Object.values(this.state.currentGameInputs);
+
+      console.log(boardManipulator);
       console.log('onClick fires:', y, x);
-      // this.currentGameInput[y][x] = this.state.currentTurn;
-      // if (this.state.currentTurn === "X") {
-      //     this.setState({
-      //         currentTurn: "Y"
-      //     })
-      // } else {
-      //     this.setState({
-      //         currentTurn: "X"
-      //     })
-      // }
+
+      if (boardManipulator[y][x] !== null) {
+          this.setState({
+              console: "Invalid Move"
+          });
+          return
+      }
+
+      boardManipulator[y][x] = this.state.currentTurn;
+
+      if (this.state.currentTurn === "X") {
+          this.setState({
+              currentTurn: "O",
+              currentGameInputs: boardManipulator,
+              console: ""
+          })
+      } else {
+          this.setState({
+              currentTurn: "X",
+              currentGameInputs: boardManipulator,
+              console: ""
+          })
+      }
   }
 
   render() {
@@ -35,21 +52,26 @@ export default class Game extends React.Component {
             <div className={"gameBox"}>
                 <div className={"gameBoard"}>
                     <div className={"topColumn"}>
-                        <div className={"position00"}>  <button onClick={ () => {this.onClick(0, 0)}}>test </button>{this.state.currentGameInputs[0][0]}</div>
-                        <div className={"position01"}>  <button onClick={ () => {this.onClick(0, 1)}}>test </button>{this.state.currentGameInputs[0][1]}</div>
-                        <div className={"position02"}>  <button onClick={ () => {this.onClick(0, 2)}}>test </button>{this.state.currentGameInputs[0][2]}</div>
+                        <div className={"position00"} onClick={ () => {this.onClick(0, 0)}}>{this.state.currentGameInputs[0][0]}</div>
+                        <div className={"position01"} onClick={ () => {this.onClick(0, 1)}}>{this.state.currentGameInputs[0][1]}</div>
+                        <div className={"position02"} onClick={ () => {this.onClick(0, 2)}}>{this.state.currentGameInputs[0][2]}</div>
                     </div>
                     <div className={"middleColumn"}>
-                        <div className={"position10"}>  <button onClick={ () => {this.onClick(1, 0)}}>test </button>{this.state.currentGameInputs[1][0]}</div>
-                        <div className={"position11"}>  <button onClick={ () => {this.onClick(1, 1)}}>test </button>{this.state.currentGameInputs[1][1]}</div>
-                        <div className={"position12"}>  <button onClick={ () => {this.onClick(1, 2)}}>test </button>{this.state.currentGameInputs[1][2]}</div>
+                        <div className={"position10"} onClick={ () => {this.onClick(1, 0)}}>{this.state.currentGameInputs[1][0]}</div>
+                        <div className={"position11"} onClick={ () => {this.onClick(1, 1)}}>{this.state.currentGameInputs[1][1]}</div>
+                        <div className={"position12"} onClick={ () => {this.onClick(1, 2)}}>{this.state.currentGameInputs[1][2]}</div>
                     </div>
                     <div className={"bottomColumn"}>
-                        <div className={"position20"}>  <button onClick={ () => {this.onClick(2, 0)}}>test </button>{this.state.currentGameInputs[2][0]}</div>
-                        <div className={"position21"}>  <button onClick={ () => {this.onClick(2, 1)}}>test </button>{this.state.currentGameInputs[2][1]}</div>
-                        <div className={"position22"}>  <button onClick={ () => {this.onClick(2, 2)}}>test </button>{this.state.currentGameInputs[2][2]}</div>
+                        <div className={"position20"} onClick={ () => {this.onClick(2, 0)}}>{this.state.currentGameInputs[2][0]}</div>
+                        <div className={"position21"} onClick={ () => {this.onClick(2, 1)}}>{this.state.currentGameInputs[2][1]}</div>
+                        <div className={"position22"} onClick={ () => {this.onClick(2, 2)}}>{this.state.currentGameInputs[2][2]}</div>
                     </div>
-                    {`Current Turn ${this.state.currentTurn}`}
+                    <div>
+                        {`Current Turn ${this.state.currentTurn}`}
+                    </div>
+                    <div>
+                        {this.state.console}
+                    </div>
                 </div>
             </div>
         </div>
