@@ -1,5 +1,5 @@
 import React from 'react';
-import ChatRoom from './ChatRoom.jsx';
+import GameChatRoom from './GameChatRoom.jsx';
 import Game from './Game.jsx';
 import Lobby from './Lobby.jsx'
 
@@ -55,20 +55,21 @@ export default class App extends React.Component {
                         ? 'nav-selected'
                         : 'nav-unselected'}
                           onClick={() => this.changeView('lobby')}>
-                        <button>Got To Game</button>
+                        <button>Go To Game</button>
                     </span>
                 </div>
             </div>
             <div className={"headerBox"}>
                 <h1>WELCOME TO TIC-TAC-TOE</h1>
             </div>
+                {`Currently logged in as: ${this.state.userName}`}
             <div>
                 <div className="app">
                     {this.state.view === 'game'
                         ?
                         <div className={"app"}>
-                            <Game />
-                            <ChatRoom />
+                            <Game name={this.state.userName}/>
+                            <GameChatRoom />
                         </div>
                         :
                         <div>

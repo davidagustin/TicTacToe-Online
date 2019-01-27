@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import propTypes from 'prop-types'
 
-export default class ChatRoom extends React.Component {
+export default class GameChatRoom extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -56,7 +56,7 @@ export default class ChatRoom extends React.Component {
     render() {
         return (
             <div className={"chatRoomAndInputBox"}>
-                <h2>Global Chat</h2>
+                <h2>Game Chat</h2>
                 <div className={"chatRoom"}>
                     <div>
                         <ol>
@@ -78,12 +78,12 @@ export default class ChatRoom extends React.Component {
     }
 }
 
-ChatRoom.defaultProps = {
+GameChatRoom.defaultProps = {
     text: '',
     chatRoomMessages: ''
 };
 
-ChatRoom.propTypes = {
+GameChatRoom.propTypes = {
     text: propTypes.string,
     chatRoomMessages: propTypes.string
 };
