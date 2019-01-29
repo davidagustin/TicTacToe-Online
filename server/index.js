@@ -3,20 +3,10 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const controller = require('./controller.js');
 const app = express();
-// const http = require('http').Server(app);
-// const io = require('socket.io')(http);
+var socket = require('socket.io');
 const PORT = 3000;
 
-// io.on('connection', function(socket){
-//   console.log('a user connected');
-//   socket.on('subscribeToTimer', (interval) => {
-//     console.log('client is subscribing to timer with interval ', interval);
-//   });
-//
-//   socket.on('disconnect', function(){
-//     console.log('user disconnected');
-//   });
-// });
+
 
 app.use(express.static(path.join(__dirname, './../client/dist')));
 app.use(bodyParser.json());
@@ -46,6 +36,20 @@ app.post('/mvp', (req, res) => {
   })
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log('MVP is now listening on port ', PORT)
+});
+
+// Socket setup & pass server
+var io = socket(server);
+io.on('connection', (socket) => {
+
+  console.log('made socket connection', socket.id);
+
+  // Handle chat event
+  socket.on('chat room', function(data){
+    console.log('this is data', data);
+    io.sockets.emit('chat room', data);
+  });
+
 });

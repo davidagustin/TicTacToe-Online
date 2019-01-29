@@ -16,6 +16,10 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+      console.log('componentDidMount Fires');
+      socket.on('chat room', (message) => {
+          console.log(message);
+      });
       this.inputUserName()
   }
 

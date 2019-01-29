@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import propTypes from 'prop-types'
+import io from 'socket.io-client';
+
+const socket = io();
 
 export default class GameChatRoom extends React.Component {
     constructor(props) {
@@ -16,6 +19,10 @@ export default class GameChatRoom extends React.Component {
 
     componentDidMount() {
         console.log('componentDidMount fires!');
+        socket.on('chat room', (message) => {
+            console.log("message", message);
+            this.getMessages()
+        });
         this.getMessages()
     }
 
@@ -42,6 +49,9 @@ export default class GameChatRoom extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         console.log('handleSubmit fires with', this.state.text);
+
+        socket.emit('chat room', {text: this.state.text});
+
 
         axios.post('/mvp', {body: this.state.text, userName:this.props.userName});
         this.getMessages()

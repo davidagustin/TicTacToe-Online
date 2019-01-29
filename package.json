@@ -29,7 +29,8 @@
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "socket.io-client": "latest"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
