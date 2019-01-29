@@ -1,5 +1,7 @@
 CREATE DATABASE IF NOT EXISTS mvp;
 
+DROP TABLE chatRoomText IF EXISTS;
+
 USE mvp;
 
 CREATE TABLE chatRoomText (

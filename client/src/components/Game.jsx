@@ -23,6 +23,13 @@ export default class Game extends React.Component {
     onClick(y, x) {
       const boardManipulator = Object.values(this.state.currentGameInputs);
 
+        if (this.state.console.includes('Neither')) {
+            this.setState({
+                console: 'Neither X or O Wins. Game has ended. Please Reset'
+            });
+            return
+        }
+
       if (this.state.console.includes('Wins')) {
           this.setState({
               console: `${this.state.previousPlayer} Wins! Game has ended. Please Reset`
@@ -106,6 +113,12 @@ export default class Game extends React.Component {
       if ([currentBoard[0][2], currentBoard[1][1], currentBoard[2][0]].every((player) => player === this.state.currentPlayer)) {
           this.setState({
               console: `${this.state.currentPlayer} Wins!`
+          });
+      }
+
+      if (currentBoard.every((input) => (input.indexOf(null) === -1)))  {
+          this.setState({
+              console: `Neither X or O Wins.`
           });
       }
   }

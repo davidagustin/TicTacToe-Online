@@ -1,7 +1,8 @@
 const db = require('../db/config.js');
 
 const postMessage = (data, cb) => {
-  const queryParams = data.body;
+  console.log('inside postMessage with', data);
+  const queryParams = `${data.userName}: ${data.body}`;
   const SQLCommand = 'INSERT INTO chatRoomText (text) VALUES (?)';
 
   db.query(SQLCommand, queryParams, (err, success) => {

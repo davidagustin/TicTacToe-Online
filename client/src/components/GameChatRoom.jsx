@@ -43,7 +43,7 @@ export default class GameChatRoom extends React.Component {
         e.preventDefault();
         console.log('handleSubmit fires with', this.state.text);
 
-        axios.post('/mvp', {body: this.state.text});
+        axios.post('/mvp', {body: this.state.text, userName:this.props.userName});
         this.getMessages()
     }
 
@@ -59,9 +59,9 @@ export default class GameChatRoom extends React.Component {
                 <h2>Game Chat</h2>
                 <div className={"chatRoom"}>
                     <div>
-                        <ol>
+                        <ul>
                             {this.state.chatRoomMessages}
-                        </ol>
+                        </ul>
                     </div>
                 </div>
                 <h2>Send Message</h2>

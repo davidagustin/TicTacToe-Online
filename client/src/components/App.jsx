@@ -68,8 +68,8 @@ export default class App extends React.Component {
                     {this.state.view === 'game'
                         ?
                         <div className={"app"}>
-                            <Game name={this.state.userName}/>
-                            <GameChatRoom />
+                            <Game />
+                            <GameChatRoom userName={this.state.userName}/>
                         </div>
                         :
                         <div>
