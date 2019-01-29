@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import propTypes from 'prop-types'
 import io from 'socket.io-client';
-
 const socket = io();
 
 export default class GameChatRoom extends React.Component {

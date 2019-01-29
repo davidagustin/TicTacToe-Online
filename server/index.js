@@ -52,4 +52,19 @@ io.on('connection', (socket) => {
     io.sockets.emit('chat room', data);
   });
 
+  socket.on('game board', function(data){
+    console.log('game board fires', data);
+    io.sockets.emit('game board', data)
+  });
+
+  socket.on('reset board', () => {
+    console.log('reset board fires');
+    io.sockets.emit('reset board')
+  })
+
+  socket.on('console', function(data) {
+    console.log('console fires', data);
+    io.sockets.emit('console', data)
+  })
+
 });
