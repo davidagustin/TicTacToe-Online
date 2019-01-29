@@ -22,9 +22,7 @@ export default class Game extends React.Component {
     }
 
     componentDidMount() {
-        console.log('componentDidMount fires!');
         socket.on('game board', (boardManipulator) => {
-            console.log('game board fires on client', boardManipulator);
             if (this.state.currentPlayer === "X") {
                 this.setState({
                     currentPlayer: "O",
@@ -60,7 +58,6 @@ export default class Game extends React.Component {
         });
 
         socket.on('console', (consoleMessage) => {
-            console.log('consoleMessage in fire', consoleMessage)
             this.setState({
                 console: consoleMessage.console
             })
@@ -72,25 +69,16 @@ export default class Game extends React.Component {
 
         if (this.state.console.includes('Neither')) {
             socket.emit('console', {console: 'Neither X or O Wins. Game has ended. Please Reset'});
-            // this.setState({
-            //     console: 'Neither X or O Wins. Game has ended. Please Reset'
-            // });
             return
         }
 
         if (this.state.console.includes('Wins')) {
             socket.emit('console', {console: `${this.state.previousPlayer} Wins! Game has ended. Please Reset`});
-            // this.setState({
-            //     console: `${this.state.previousPlayer} Wins! Game has ended. Please Reset`
-            // });
             return
         }
 
         if (boardManipulator[y][x] !== null) {
             socket.emit('console', {console: "Invalid Move"});
-            // this.setState({
-            //     console: "Invalid Move"
-            // });
             return
         }
         boardManipulator[y][x] = this.state.currentPlayer;
@@ -99,14 +87,9 @@ export default class Game extends React.Component {
     }
 
     gameCompletionCheck() {
-        console.log('completion Check fires');
         const currentBoard = Object.values(this.state.currentGameInputs);
-        console.log('current player:', this.state.currentPlayer);
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                console.log(JSON.stringify(currentBoard[i]));
-                console.log(JSON.stringify(currentBoard[j][i]));
-                console.log(currentBoard[i].every((player) => player === this.state.currentPlayer));
                 if (currentBoard[i].every((player) => player === this.state.currentPlayer)) {
                     socket.emit('console', {console: `${this.state.currentPlayer} Wins!`});
 
@@ -127,9 +110,6 @@ export default class Game extends React.Component {
 
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                console.log(JSON.stringify(transposedBoard[i]));
-                console.log(JSON.stringify(transposedBoard[j][i]));
-                console.log(transposedBoard[i].every((player) => player === this.state.currentPlayer));
                 if (transposedBoard[i].every((player) => player === this.state.currentPlayer)) {
                     socket.emit('console', {console: `${this.state.currentPlayer} Wins!`});
                 }
@@ -138,16 +118,10 @@ export default class Game extends React.Component {
 
         if ([currentBoard[0][0], currentBoard[1][1], currentBoard[2][2]].every((player) => player === this.state.currentPlayer)) {
             socket.emit('console', {console: `${this.state.currentPlayer} Wins!`});
-            // this.setState({
-            //     console: `${this.state.currentPlayer} Wins!`
-            // });
         }
 
         if ([currentBoard[0][2], currentBoard[1][1], currentBoard[2][0]].every((player) => player === this.state.currentPlayer)) {
             socket.emit('console', {console: `${this.state.currentPlayer} Wins!`});
-            // this.setState({
-            //     console: `${this.state.currentPlayer} Wins!`
-            // });
         }
 
         if (currentBoard.every((input) => (input.indexOf(null) === -1))) {
@@ -160,7 +134,6 @@ export default class Game extends React.Component {
     }
 
     render() {
-        console.log('this.state.console', this.state.console)
         return (
             <div>
                 <h2>Game</h2>

@@ -5,80 +5,82 @@ import Lobby from './Lobby.jsx'
 
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-        view: 'lobby',
-        userName: ""
-    };
-    this.changeView = this.changeView.bind(this);
-  }
+        this.state = {
+            view: 'lobby',
+            userName: ""
+        };
+        this.changeView = this.changeView.bind(this);
+    }
 
-  componentDidMount() {
-      this.inputUserName()
-  }
+    componentDidMount() {
+        this.inputUserName()
+    }
 
     changeView(option) {
-    if (option === 'lobby') {
-        this.setState ({
-            view: 'game'
-        });
-    } else {
-        this.setState({
-            view: 'lobby'
-        })
+        if (option === 'lobby') {
+            this.setState({
+                view: 'game'
+            });
+        } else {
+            this.setState({
+                view: 'lobby'
+            })
+        }
     }
-  }
 
     inputUserName() {
         if (this.state.userName.length === 0) {
-            let  newName = prompt("Please enter your name:");
+            let newName = prompt("Please enter your name:");
             this.setState({
                 userName: newName
             })
         }
     }
 
-  render() {
-    return (
-        <div>
+    render() {
+        return (
             <div>
-                <div className="nav">
+                <div>
+                    <div className="nav">
                     <span className={this.state.view === 'lobby'
                         ? 'nav-selected'
                         : 'nav-unselected'}
                           onClick={() => this.changeView('game')}>
                         <button>Go To Lobby</button>
                         </span>
-                    <span className={this.state.view === 'game'
-                        ? 'nav-selected'
-                        : 'nav-unselected'}
-                          onClick={() => this.changeView('lobby')}>
+                        <span className={this.state.view === 'game'
+                            ? 'nav-selected'
+                            : 'nav-unselected'}
+                              onClick={() => this.changeView('lobby')}>
                         <button>Go To Game</button>
                     </span>
+                    </div>
+                </div>
+                <div className={"headerBox"}>
+                    <h1>WELCOME TO TIC-TAC-TOE</h1>
+                </div>
+                <div className={"currentlyLoggedInAs"}>
+                    {`Currently logged in as: ${this.state.userName}`}
+                </div>
+                <div>
+                    <div className="app">
+                        {this.state.view === 'game'
+                            ?
+                            <div className={"app"}>
+                                <Game/>
+                                <GameChatRoom userName={this.state.userName}/>
+                            </div>
+                            :
+                            <div>
+                                <Lobby userName={this.state.userName}/>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
-            <div className={"headerBox"}>
-                <h1>WELCOME TO TIC-TAC-TOE</h1>
-            </div>
-                {`Currently logged in as: ${this.state.userName}`}
-            <div>
-                <div className="app">
-                    {this.state.view === 'game'
-                        ?
-                        <div className={"app"}>
-                            <Game />
-                            <GameChatRoom userName={this.state.userName}/>
-                        </div>
-                        :
-                        <div>
-                            <Lobby />
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
-    )
-  }
+        )
+    }
 }

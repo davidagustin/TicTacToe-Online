@@ -17,19 +17,15 @@ export default class GameChatRoom extends React.Component {
     }
 
     componentDidMount() {
-        console.log('componentDidMount fires!');
         socket.on('chat room', (message) => {
-            console.log("message", message);
             this.getMessages()
         });
         this.getMessages()
     }
 
     getMessages() {
-        console.log('current messages', this.state.chatRoomMessages);
         axios.get('/mvp')
             .then((messages) => {
-                console.log(messages);
                 const messageList = messages.data.map((message, i) => {
                     return (
                         <li key={i}>
@@ -47,11 +43,7 @@ export default class GameChatRoom extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log('handleSubmit fires with', this.state.text);
-
         socket.emit('chat room', {text: this.state.text});
-
-
         axios.post('/mvp', {body: this.state.text, userName:this.props.userName});
         this.getMessages()
     }
